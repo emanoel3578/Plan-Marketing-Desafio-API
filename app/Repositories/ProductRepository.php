@@ -11,9 +11,9 @@ class ProductRepository implements ProductRepositoryInterface {
     public function __construct(private Product $model)
     {}
 
-    public function createNewProduct()
+    public function createNewProduct(array $data): Product
     {
-        # code...
+        return $this->model->create($data);
     }
 
     public function getListOfProducts()

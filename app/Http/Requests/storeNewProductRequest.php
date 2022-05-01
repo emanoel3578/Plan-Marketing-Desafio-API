@@ -24,7 +24,7 @@ class StoreNewProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:150',
+            'name' => 'required|unique:product|string|min:3|max:150',
             'description' => 'required|string|min:3|max:255',
             'tension' => 'required|string|min:2|max:10',
             'brand' => 'required|string|in:Electrolux,Brastemp,Fischer,Samsung,LG'
@@ -36,6 +36,7 @@ class StoreNewProductRequest extends FormRequest
         return [
             'name.required' => 'O campo nome é obrigatório, por favor verifique o campo novamente',
             'name.string' => 'O campo nome precisa ser no formato texto, por favor verifique o campo novamente',
+            'name.unique' => 'Um produto com esse nome já consta em nossos registros, por favor verifique o campo novamente',
             'name.min' => 'O campo nome requer no mínimo 3 caracteres, por favor verifique o campo novamente',
             'name.max' => 'O campo nome requer no máximo 150 caracteres, por favor verifique o campo novamente',
             'description.required' => 'O campo descrição é obrigatório, por favor verifique o campo novamente',

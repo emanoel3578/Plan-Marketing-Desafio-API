@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNewProductRequest;
 use App\Services\ProductService;
+use Throwable;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -29,10 +30,13 @@ class ProductController extends Controller
      */
     public function store(StoreNewProductRequest $request)
     {
-        $validatedData = $request->validated();
-        
-        $data = $this->service->createNewProduct($validatedData);
-
+        try {
+            $validatedData = $request->validated();
+            $data = $this->service->createNewProduct($validatedData);
+            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+        }catch (Throwable $e) {
+            return response()->json(['message' => 'Error', 'error' => $e->getMessage()]);
+        }
     }
 
     /**

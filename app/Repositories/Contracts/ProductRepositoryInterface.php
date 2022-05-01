@@ -2,9 +2,12 @@
 
 namespace App\Repositories\Contracts;
 
-interface ProductRepositoryInterface {
+use App\Models\Product;
 
-    public function createNewProduct();
+interface ProductRepositoryInterface
+{
+
+    public function createNewProduct(array $data): Product;
 
     public function getListOfProducts();
 
