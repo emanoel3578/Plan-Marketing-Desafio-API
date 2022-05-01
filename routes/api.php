@@ -12,6 +12,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     ["prefix" => "produtos", "as" => "api.produtos."],
     function () {
-        Route::post("criar", [ProductController::class, "storeNewProduct"]);
+        Route::post("criar", [ProductController::class, "store"]);
     }
 );

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\storeNewProductRequest;
+use App\Http\Requests\StoreNewProductRequest;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct(private ProductService $service)
+    {}
+
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +27,11 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeNewProduct(storeNewProductRequest $request)
+    public function store(StoreNewProductRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+        
+        $data = $this->service->storeNewProduct($validatedData);
     }
 
     /**
