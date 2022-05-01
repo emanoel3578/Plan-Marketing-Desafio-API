@@ -23,9 +23,9 @@ class ProductService {
         return $data;
     }
 
-    public function updateProduct()
+    public function updateProduct(array $data): bool
     {
-        # code...
+        return $this->repository->updateProduct($data);
     }
 
     public function deleteProduct()

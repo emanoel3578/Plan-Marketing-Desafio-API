@@ -27,9 +27,9 @@ class ProductRepository implements ProductRepositoryInterface {
         return $query;
     }
 
-    public function updateProduct()
+    public function updateProduct(array $data): bool
     {
-        # code...
+        return $this->model->find($data['id'])->update($data);
     }
 
     public function deleteProduct()

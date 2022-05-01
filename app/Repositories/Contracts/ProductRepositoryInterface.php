@@ -12,7 +12,7 @@ interface ProductRepositoryInterface
 
     public function getListOfProducts(int $itemsPerPage, int $offset): Collection;
 
-    public function updateProduct();
+    public function updateProduct(array $data): bool;
 
     public function deleteProduct(); 
 }

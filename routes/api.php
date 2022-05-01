@@ -14,5 +14,6 @@ Route::group(
     function () {
         Route::post("criar", [ProductController::class, "store"]);
         Route::get("listar", [ProductController::class, "index"]);
+        Route::patch("editar", [ProductController::class, "update"]);
     }
 );
