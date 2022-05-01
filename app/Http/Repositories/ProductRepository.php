@@ -2,12 +2,14 @@
 
 namespace App\Repositories;
 
-class ProdutctRepository {
+use App\Repositories\Contracts\ProductRepositoryInterface;
 
-    public function __construct()
-    {
-        
-    }
+use App\Models\Product;
+
+class ProductRepository implements ProductRepositoryInterface {
+
+    public function __construct(private Product $model)
+    {}
 
     public function createNewProduct()
     {

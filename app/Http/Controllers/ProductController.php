@@ -31,7 +31,8 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
         
-        $data = $this->service->storeNewProduct($validatedData);
+        $data = $this->service->createNewProduct($validatedData);
+
     }
 
     /**
