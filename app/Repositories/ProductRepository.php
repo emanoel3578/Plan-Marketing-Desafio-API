@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Contracts\ProductRepositoryInterface;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository implements ProductRepositoryInterface {
 
@@ -16,9 +17,14 @@ class ProductRepository implements ProductRepositoryInterface {
         return $this->model->create($data);
     }
 
-    public function getListOfProducts()
+    public function getListOfProducts(int $itemsPerPage, int $offset): Collection
     {
-        # code...
+        $query = $this->model
+        ->offset($offset)
+        ->limit($itemsPerPage)
+        ->get();
+
+        return $query;
     }
 
     public function updateProduct()

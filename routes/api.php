@@ -13,5 +13,6 @@ Route::group(
     ["prefix" => "produtos", "as" => "api.produtos."],
     function () {
         Route::post("criar", [ProductController::class, "store"]);
+        Route::get("listar", [ProductController::class, "index"]);
     }
 );

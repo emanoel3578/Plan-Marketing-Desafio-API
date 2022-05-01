@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\StoreNewProductRequest;
 use App\Services\ProductService;
 use Throwable;
@@ -17,9 +18,15 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ListProductsRequest $request)
     {
-        //
+        try {
+            $validatedData = $request->validated();
+            $data = $this->service->getListOfProducts($request->safe()->itemsPerPage, $request->safe()->offset);
+            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+        }catch (Throwable $e) {
+            return response()->json(['message' => 'Error', 'error' => $e->getMessage()]);
+        }
     }
 
     /**

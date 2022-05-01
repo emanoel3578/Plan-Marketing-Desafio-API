@@ -14,9 +14,13 @@ class ProductService {
         return $this->repository->createNewProduct($data);
     }
 
-    public function getListOfProducts()
+    public function getListOfProducts($itemsPerPage = 10, $offset = 0)
     {
-        # code...
+        $data = $this->repository->getListOfProducts($itemsPerPage, $offset);
+        if($data) {
+            return $data->toArray();
+        }
+        return $data;
     }
 
     public function updateProduct()
