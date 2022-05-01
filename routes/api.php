@@ -15,5 +15,6 @@ Route::group(
         Route::post("criar", [ProductController::class, "store"]);
         Route::get("listar", [ProductController::class, "index"]);
         Route::patch("editar", [ProductController::class, "update"]);
+        Route::delete("deletar", [ProductController::class, "destroy"]);
     }
 );

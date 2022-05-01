@@ -28,8 +28,8 @@ class ProductService {
         return $this->repository->updateProduct($data);
     }
 
-    public function deleteProduct()
+    public function deleteProduct(int $id)
     {
-        # code...
+        return $this->repository->deleteProduct($id);
     }
 }

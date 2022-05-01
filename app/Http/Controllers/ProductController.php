@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\StoreNewProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
 use Throwable;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -71,8 +71,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteRequest $request)
     {
-        //
+        try {
+            $data = $this->service->deleteProduct($request->safe()->id);
+            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+        }catch (Throwable $e) {
+            return response()->json(['message' => 'Error', 'error' => 'Não foi possível encontrar nenhum produto com o Id recebido']);
+        }
     }
 }
