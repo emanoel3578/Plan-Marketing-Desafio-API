@@ -7,6 +7,7 @@ use App\Http\Requests\ListProductsRequest;
 use App\Http\Requests\StoreNewProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Services\ProductService;
+use Illuminate\Http\Client\Request;
 use Throwable;
 
 class ProductController extends Controller
@@ -24,7 +25,7 @@ class ProductController extends Controller
         try {
             $validatedData = $request->validated();
             $data = $this->service->getListOfProducts($request->safe()->itemsPerPage, $request->safe()->offset);
-            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+            return response()->json(['message' => 'Listagem de produtos carregada com sucesso', 'data'=> $data]);
         }catch (Throwable $e) {
             return response()->json(['message' => 'Error', 'error' => $e->getMessage()]);
         }
@@ -40,8 +41,8 @@ class ProductController extends Controller
     {
         try {
             $validatedData = $request->validated();
-            $data = $this->service->createNewProduct($validatedData);
-            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+            $data = $this->service->createNewProduct($validatedData['product']);
+            return response()->json(['message' => 'Criação de produto feita com sucesso', 'data'=> $data]);
         }catch (Throwable $e) {
             return response()->json(['message' => 'Error', 'error' => $e->getMessage()]);
         }
@@ -54,12 +55,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request)
+    public function update(UpdateProductRequest  $request)
     {
         try {
-            $validatedData = $request->validated();
-            $data = $this->service->updateProduct($validatedData);
-            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+            $request = $request->input('product');
+            $data = $this->service->updateProduct($request);
+            return response()->json(['message' => 'Atualizado os dados do produto com sucesso', 'data'=> $data]);
         }catch (Throwable $e) {
             return response()->json(['message' => 'Error', 'error' => $e->getMessage()]);
         }
@@ -74,8 +75,8 @@ class ProductController extends Controller
     public function destroy(DeleteRequest $request)
     {
         try {
-            $data = $this->service->deleteProduct($request->safe()->id);
-            return response()->json(['message' => 'Sucesso', 'data'=> $data]);
+            $data = $this->service->deleteProduct($request->id);
+            return response()->json(['message' => 'Deletado produto com sucesso', 'data'=> $data]);
         }catch (Throwable $e) {
             return response()->json(['message' => 'Error', 'error' => 'Não foi possível encontrar nenhum produto com o Id recebido']);
         }
